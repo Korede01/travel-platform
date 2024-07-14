@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  user-management:
+    build:
+      context: ./user-management
+    ports:
+      - '3001:3000'
+    depends_on:
+      - mongodb
+      - rabbitmq
+
+  flight-bookings:
+    build:
+      context: ./flight-booking
+    ports:
+      - '3002:3000'
+    depends_on:
+      - mongodb
+      - rabbitmq
+
+  mongodb:
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+
+  rabbitmq:
+    image: rabbitmq:2management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
